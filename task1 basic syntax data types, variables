@@ -1,0 +1,14 @@
+class Main 
+{
+    public static void main(String[] args)
+    {
+     
+        String name= "hello world";
+        System.out.println(name);
+        int num1=6;
+        System.out.println("1st number is : " + num1);
+        double num2=7.5;
+        System.out.println("2nd number is :" + num2 );
+        
+    }
+}
