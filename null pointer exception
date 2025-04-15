@@ -1,0 +1,14 @@
+public class ques3 {
+    public static void main(String[] args) {
+        // Initializing a string variable to null
+        String text = "hello" ; text = null;
+
+        try {
+            // Trying to call a method on a null reference
+            int length = text.length();
+            System.out.println("Length of the string: " + length);
+        } catch (NullPointerException e) {
+            System.out.println("Error: Cannot call methods on a null object.");
+        }
+    }
+}
