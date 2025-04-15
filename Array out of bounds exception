@@ -1,0 +1,22 @@
+import java.util.Scanner;
+
+public class ques2 {
+    public static void main(String[] args) {
+        // Initializing an array of size 5
+        int[] numbers = {1,2,3,4,5};
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter an index (0 to 4): ");
+        int index = scanner.nextInt();
+
+        try {
+            // Trying to access the element at the given index
+            System.out.println("Element at index " + index + " is: " + numbers[index]);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Invalid index! Please enter a value between 0 and 4.");
+        }
+
+        scanner.close();
+    }
+}
