@@ -1,0 +1,47 @@
+part 1- in mypackage folder, MyInterface
+package mypackage;
+
+public interface MyInterface
+ {
+    void display();
+ }
+
+part2- in mypackage folder, MyClass
+package mypackage;
+
+public class MyClass implements MyInterface {
+    String name;
+    int age;
+    String relation;
+
+    public MyClass(String name, int age, String relation) {
+        this.name = name;
+        this.age = age;
+        this.relation = relation;
+    }
+
+    public void display() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Relation: " + relation);
+    }
+}
+
+part3- outside mypackage, task10
+import mypackage.MyClass; 
+
+public class task10
+ {
+    public static void main(String[] args) 
+{
+        MyClass dad = new MyClass("Sandeep",50,"Father"); 
+        dad.display();
+        
+        MyClass mom = new MyClass("Vaishali",46,"Mother");
+        mom.display();
+    }
+}
+
+to compile - javac -d . mypackage/MyInterface.java mypackage/MyClass.java
+javac -d . task10.java
+java task10
