@@ -1,0 +1,73 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class TicketBooking extends JFrame {
+
+    private int availableTickets = 5;
+    private JTextField nameField, ticketField;
+    private JTextArea outputArea;
+
+    public TicketBooking() {
+        setTitle("Ticket Booking");
+        setSize(350, 250);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+
+        add(new JLabel("Name:"));
+        nameField = new JTextField(15);
+        add(nameField);
+
+        add(new JLabel("Tickets:"));
+        ticketField = new JTextField(5);
+        add(ticketField);
+
+        JButton bookBtn = new JButton("Book");
+        add(bookBtn);
+
+        outputArea = new JTextArea(8, 25);
+        outputArea.setEditable(false);
+        add(new JScrollPane(outputArea));
+
+        bookBtn.addActionListener(e -> {
+            String name = nameField.getText();
+            String ticketText = ticketField.getText();
+
+            if (!name.isEmpty() && !ticketText.isEmpty() && ticketText.matches("\\d+")) {
+               int tickets = Integer.parseInt(ticketText);
+                new BookingThread(name, tickets).start();
+            } else {
+                outputArea.append("Please enter valid name and number.\n");
+            }
+        });
+    }
+
+  
+    public synchronized void book(String name, int tickets) {
+        if (tickets <= availableTickets) {
+            outputArea.append(name + " booked " + tickets + " ticket(s).\n");
+            availableTickets -= tickets;
+        } else {
+            outputArea.append("Not enough tickets for " + name + ".\n");
+        }
+    }
+
+   
+    class BookingThread extends Thread {
+        String name;
+        int tickets;
+
+        BookingThread(String name, int tickets) {
+            this.name = name;
+            this.tickets = tickets;
+        }
+
+        public void run() {
+            book(name, tickets);
+        }
+    }
+
+    public static void main(String[] args) {
+        new TicketBooking().setVisible(true);
+    }
+}
