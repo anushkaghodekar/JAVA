@@ -1,0 +1,43 @@
+import java.applet.*;
+import java.awt.*;
+import java.awt.event.*;
+
+
+public class task13 extends Applet implements ActionListener {
+    String name = "Guest";
+    Label label;
+    Button button;
+
+    public void init() {
+        String parameter = getParameter("username");
+        if (parameter != null) {
+            name = parameter;
+        }
+
+        setLayout(new FlowLayout());
+        setBackground(Color.lightGray);
+
+        label = new Label("Hello, " + name + "!");
+        button = new Button("Click Me");
+
+        button.addActionListener(this);
+
+        add(label);
+        add(button);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        label.setText("Button clicked! Welcome, " + name + "!");
+    }
+}
+
+
+in separate html file - 
+<html>
+    <body>
+        <h2>Java Applet Output:</h2>
+        <applet code="task13.class" width="400" height="300">
+            <parameter name="username" value="Alice">
+        </applet>
+    </body>
+</html>
