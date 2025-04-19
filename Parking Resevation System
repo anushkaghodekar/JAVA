@@ -1,0 +1,228 @@
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.*;
+
+public class ParkingReservationSystem {
+
+    private static String[] generateTimeSlots() {
+        String[] times = new String[48];
+        int index = 0;
+        for (int hour = 0; hour < 24; hour++) {
+            times[index++] = String.format("%02d:00", hour);
+            times[index++] = String.format("%02d:30", hour);
+        }
+        return times;
+    }
+
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Vehicle Parking Reservation System");
+        frame.setSize(800, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new BorderLayout());
+
+        Color navy = new Color(20, 33, 61);
+
+        JPanel panel = new JPanel(new GridLayout(6, 2, 10, 10));
+        panel.setBackground(navy);
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        Font labelFont = new Font("Segoe UI", Font.BOLD, 14);
+        Color textColor = new Color(230, 230, 230);
+
+        JLabel nameLabel = new JLabel("Name of Owner:");
+        nameLabel.setFont(labelFont);
+        nameLabel.setForeground(textColor);
+        JTextField nameField = new JTextField();
+        styleTextField(nameField);
+        panel.add(nameLabel);
+        panel.add(nameField);
+
+        JLabel carLabel = new JLabel("Car Name & Model:");
+        carLabel.setFont(labelFont);
+        carLabel.setForeground(textColor);
+        JTextField carField = new JTextField();
+        styleTextField(carField);
+        panel.add(carLabel);
+        panel.add(carField);
+
+        JLabel numberLabel = new JLabel("Car Number (e.g., MH-12-AB1234):");
+        numberLabel.setFont(labelFont);
+        numberLabel.setForeground(textColor);
+        JTextField numberField = new JTextField();
+        styleTextField(numberField);
+        panel.add(numberLabel);
+        panel.add(numberField);
+
+        JLabel destinationLabel = new JLabel("Destination:");
+        destinationLabel.setFont(labelFont);
+        destinationLabel.setForeground(textColor);
+        String[] destinations = {"Theatre", "Restaurant", "Metro", "Railway Station", "Mall"};
+        JComboBox<String> destinationBox = new JComboBox<>(destinations);
+        styleComboBox(destinationBox);
+        panel.add(destinationLabel);
+        panel.add(destinationBox);
+
+        JLabel arrivalTimeLabel = new JLabel("Arrival Time (in HH:mm):");
+        arrivalTimeLabel.setFont(labelFont);
+        arrivalTimeLabel.setForeground(textColor);
+        JComboBox<String> arrivalTimeBox = new JComboBox<>(generateTimeSlots());
+        styleComboBox(arrivalTimeBox);
+        panel.add(arrivalTimeLabel);
+        panel.add(arrivalTimeBox);
+
+        JLabel durationLabel = new JLabel("Parking Duration (hrs):");
+        durationLabel.setFont(labelFont);
+        durationLabel.setForeground(textColor);
+        String[] durations = {"2", "5", "8"};
+        JComboBox<String> durationBox = new JComboBox<>(durations);
+        styleComboBox(durationBox);
+        panel.add(durationLabel);
+        panel.add(durationBox);
+
+        String[] columns = {"Name", "Car Name", "Car Number", "Destination", "Arrival Time", "Duration", "Charge"};
+        DefaultTableModel model = new DefaultTableModel(columns, 0);
+        JTable table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+        table.setFont(new Font("Segoe UI", Font.PLAIN, 13));
+        table.setRowHeight(22);
+        table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 14));
+        table.getTableHeader().setBackground(new Color(44, 62, 80));
+        table.getTableHeader().setForeground(Color.WHITE);
+
+        JButton saveButton = createStyledButton("Save Details", new Color(174, 174, 255));
+        JButton updateButton = createStyledButton("Update Details", new Color(52, 152, 219));
+        JButton deleteButton = createStyledButton("Delete Details", new Color(231, 76, 60));
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(navy);
+        buttonPanel.add(saveButton);
+        buttonPanel.add(updateButton);
+        buttonPanel.add(deleteButton);
+
+        saveButton.addActionListener(e -> {
+            String name = nameField.getText().trim();
+            String car = carField.getText().trim();
+            String number = numberField.getText().trim();
+            String destination = (String) destinationBox.getSelectedItem();
+            String arrivalTimeStr = (String) arrivalTimeBox.getSelectedItem();
+            String durationStr = (String) durationBox.getSelectedItem();
+
+            if (name.isEmpty() || car.isEmpty() || number.isEmpty() || destination.isEmpty() || arrivalTimeStr.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Please fill in all fields.");
+                return;
+            }
+
+            try {
+                int duration = Integer.parseInt(durationStr);
+                int cost = duration * 120;
+
+                JOptionPane.showMessageDialog(frame, "Reservation Booked!\n"
+                        + "-------------------------\n"
+                        + "Name: " + name + "\n"
+                        + "Car: " + car + "\n"
+                        + "Car number: " + number + "\n"
+                        + "Destination: " + destination + "\n"
+                        + "Arrival Time: " + arrivalTimeStr + "\n"
+                        + "Duration: " + duration + " hours\n"
+                        + "Cost: ₹" + cost + "\n"
+                        + "Buffer Time: 15 mins",
+                        "Booking Confirmation", JOptionPane.INFORMATION_MESSAGE);
+
+                model.addRow(new Object[]{name, car, number, destination, arrivalTimeStr, duration + " hrs", "Rs. " + cost});
+
+                nameField.setText("");
+                carField.setText("");
+                numberField.setText("");
+                arrivalTimeBox.setSelectedIndex(0);
+                destinationBox.setSelectedIndex(0);
+                durationBox.setSelectedIndex(0);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Invalid input. Make sure duration is a number.");
+            }
+        });
+
+        updateButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(frame, "Select a reservation to update.");
+                return;
+            }
+
+            String name = nameField.getText().trim();
+            String car = carField.getText().trim();
+            String number = numberField.getText().trim();
+            String destination = (String) destinationBox.getSelectedItem();
+            String arrivalTimeStr = (String) arrivalTimeBox.getSelectedItem();
+            String durationStr = (String) durationBox.getSelectedItem();
+
+            if (name.isEmpty() || car.isEmpty() || number.isEmpty() || destination.isEmpty() || arrivalTimeStr.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Please fill in all fields.");
+                return;
+            }
+
+            model.setValueAt(name, selectedRow, 0);
+            model.setValueAt(car, selectedRow, 1);
+            model.setValueAt(number, selectedRow, 2);
+            model.setValueAt(destination, selectedRow, 3);
+            model.setValueAt(arrivalTimeStr, selectedRow, 4);
+            model.setValueAt(durationStr + " hrs", selectedRow, 5);
+            model.setValueAt("Rs. " + (Integer.parseInt(durationStr) * 120), selectedRow, 6);
+        });
+
+        deleteButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow == -1) {
+                JOptionPane.showMessageDialog(frame, "Select a reservation to delete.");
+                return;
+            }
+            model.removeRow(selectedRow);
+        });
+
+        table.getSelectionModel().addListSelectionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow != -1) {
+                nameField.setText(model.getValueAt(selectedRow, 0).toString());
+                carField.setText(model.getValueAt(selectedRow, 1).toString());
+                numberField.setText(model.getValueAt(selectedRow, 2).toString());
+                destinationBox.setSelectedItem(model.getValueAt(selectedRow, 3).toString());
+                arrivalTimeBox.setSelectedItem(model.getValueAt(selectedRow, 4).toString());
+                String durationText = model.getValueAt(selectedRow, 5).toString().split(" ")[0];
+                durationBox.setSelectedItem(durationText);
+            }
+        });
+
+        frame.add(panel, BorderLayout.NORTH);
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+        frame.getContentPane().setBackground(navy);
+        frame.setVisible(true);
+    }
+
+    private static void styleTextField(JTextField textField) {
+        textField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        textField.setBackground(new Color(173,216,230));
+        textField.setForeground(new Color(20,33,61));
+        textField.setCaretColor(new Color(230, 230, 230));
+    }
+
+    private static JButton createStyledButton(String text, Color color) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setBackground(color);
+        button.setForeground(new Color(20,33,61));
+        button.setFocusPainted(false);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        button.setPreferredSize(new Dimension(150, 30));
+        return button;
+    }
+
+    private static void styleComboBox(JComboBox<String> comboBox) {
+        comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        comboBox.setBackground(new Color(173,216,230));
+        comboBox.setForeground(new Color(20,33,61));
+    }
+}
