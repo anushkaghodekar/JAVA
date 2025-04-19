@@ -28,7 +28,7 @@ class Passenger extends Thread {
     }
 }
 
-public class TicketBookingSystem {
+public class task12 {
     public static void main(String[] args) {
         TicketCounter counter = new TicketCounter();
 
