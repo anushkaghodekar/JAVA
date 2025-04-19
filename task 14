@@ -3,11 +3,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CounterApp extends JFrame implements ActionListener {
+public class task14 extends JFrame implements ActionListener {
     private JLabel countLabel;
     private int count = 0;
 
-    public CounterApp() {
+    public task14() {
         setTitle("Counter Application");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +45,7 @@ public class CounterApp extends JFrame implements ActionListener {
     
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new CounterApp().setVisible(true);
+            new task14().setVisible(true);
         });
     }
 }
