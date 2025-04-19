@@ -1,0 +1,70 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+public class task14 extends JFrame {
+    private JLabel resultLabel;
+    private JLabel computerChoiceLabel;
+    private Random random;
+    private String[] choices = {"Rock", "Paper", "Scissors"};
+
+    public task14() {
+        setTitle("Rock-Paper-Scissors Game");
+        setSize(400, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new FlowLayout());
+        
+        random = new Random();
+        
+        JLabel instructionLabel = new JLabel("Choose Rock, Paper, or Scissors:");
+        add(instructionLabel);
+        
+        JButton rockButton = new JButton("Rock");
+        JButton paperButton = new JButton("Paper");
+        JButton scissorsButton = new JButton("Scissors");
+        
+        add(rockButton);
+        add(paperButton);
+        add(scissorsButton);
+        
+        computerChoiceLabel = new JLabel("Computer choice: ");
+        add(computerChoiceLabel);
+        
+        resultLabel = new JLabel("Result: ");
+        add(resultLabel);
+        
+        rockButton.addActionListener(new ChoiceHandler("Rock"));
+        paperButton.addActionListener(new ChoiceHandler("Paper"));
+        scissorsButton.addActionListener(new ChoiceHandler("Scissors"));
+    }
+    
+    private class ChoiceHandler implements ActionListener {
+        private String userChoice;
+        
+        public ChoiceHandler(String choice) {
+            this.userChoice = choice;
+        }
+        
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String computerChoice = choices[random.nextInt(3)];
+            computerChoiceLabel.setText("Computer choice: " + computerChoice);
+            
+            if (userChoice.equals(computerChoice)) {
+                resultLabel.setText("Result: It's a Draw!");
+            } else if ((userChoice.equals("Rock") && computerChoice.equals("Scissors")) ||
+                       (userChoice.equals("Paper") && computerChoice.equals("Rock")) ||
+                       (userChoice.equals("Scissors") && computerChoice.equals("Paper"))) {
+                resultLabel.setText("Result: You Win!");
+            } else {
+                resultLabel.setText("Result: You Lose!");
+            }
+        }
+    }
+    
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new task14().setVisible(true));
+    }
+}
