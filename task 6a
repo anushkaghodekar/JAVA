@@ -1,0 +1,15 @@
+public class task6
+{
+public static void main(String[] args)
+{
+if (args.length==2)
+{
+int num1= Integer.parseInt(args[0]);
+int num2= Integer.parseInt(args[1]);
+
+int add = num1+num2;
+System.out.println("addition is = " + add);
+}
+else { System.out.println("bhai provide nos"); }
+}
+}
