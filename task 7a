@@ -1,0 +1,43 @@
+class Person
+{ String name;
+int age;
+String address;
+
+public Person(String name,int age, String address)
+{
+this.name= name;
+this.age=age;
+this.address= address;
+}
+}
+class Employee extends Person
+{
+double id;
+double salary;
+String orgname;
+
+public Employee(String name,int age,String address, double id, double salary,String orgname)
+{ super(name,age,address);
+this.id=id;
+this.salary=salary;
+this.orgname=orgname;
+} 
+
+public void display()
+{
+System.out.println("employee name =" + name);
+System.out.println("employee age =" + age);
+System.out.println("employee address =" + address);
+System.out.println("employee id =" + id);
+System.out.println("employee salary =" + salary);
+System.out.println("employee orgname =" + orgname);
+} }
+
+public class task7
+{
+public static void main(String[] args)
+{
+Employee emp= new Employee("anushka",18,"thane",1116,90000,"google");
+emp.display();
+}
+}
