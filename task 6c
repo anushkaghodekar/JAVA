@@ -1,0 +1,21 @@
+import java.io.DataOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+class task6
+{
+public static void main(String[] args) throws IOException
+{
+DataOutputStream data = new DataOutputStream( new FileOutputStream("userdata.dat") ); 
+int age= data.readInt();
+double marks= data.readDouble();
+boolean isStudent = data.readBoolean();
+
+System.out.println("age = " + age);
+System.out.println("marks = " + marks);
+System.out.println("boolean = " + isStudent);
+
+data.close();
+System.out.println("data is written succesfully");
+}
+}
