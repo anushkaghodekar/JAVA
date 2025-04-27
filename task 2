@@ -1,0 +1,37 @@
+import java.util.Scanner;
+public class task2
+{
+public static double Area(int radius)
+{
+double area = Math.PI*radius*radius; 
+System.out.println(" area of circle is =" + area);
+return area;
+}
+
+public static double Area(double length, double breadth)
+{ double area= length*breadth;
+System.out.println(" area of rectangle is =" + area);
+return area; }
+
+public static double Volume(double length,double breadth,double height)
+{ double volume = length*breadth*height;
+System.out.println(" volume of rectangle is =" + volume); 
+return volume;}
+
+public static void main(String[] args)
+{
+Scanner sc= new Scanner(System.in);
+System.out.println("enter radius =");
+int radius = sc.nextInt();
+System.out.println("enter length =");
+double length = sc.nextDouble();
+System.out.println("enter breadth =");
+double breadth = sc.nextDouble();
+System.out.println("enter height =");
+double height= sc.nextDouble();
+
+Area(radius);
+Area(length,breadth);
+Volume(length,breadth,height);
+}
+}
