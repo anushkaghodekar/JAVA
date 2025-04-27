@@ -1,0 +1,50 @@
+class Employee
+{
+private String name;
+private int age;
+private double salary;
+
+public Employee(String name, int age,double salary)
+{
+this.name= name;
+this.age=age;
+this.salary=salary; }
+
+public String getName()
+{ return name; }
+public void setName(String name)
+{ this.name=name; }
+
+public int getAge()
+{ return age; }
+public void setAge(int age)
+{ if(age>0) { this.age=age;}
+else { System.out.println("invalid age"); } }
+
+public double getSalary()
+{ return salary; }
+public void setSalary(double salary)
+{ if(salary>=0) { this.salary= salary; }
+else { System.out.println(" invalid salary "); } }
+
+public void Displaydetails()
+{ System.out.println(" employee name = " + getName());
+System.out.println(" employee age = " + getAge());
+System.out.println(" employee salary = " + getSalary());
+}
+}
+public class task4
+{
+public static void main(String[] args)
+{
+Employee emp= new Employee("Riya",40,40000);
+System.out.println("Initial Employee details = ");
+emp.Displaydetails();
+
+emp.setName("Ritwik");
+emp.setAge(34);
+emp.setSalary(50000);
+System.out.println("/nUpdated Employee details =");
+emp.Displaydetails();
+}
+}
