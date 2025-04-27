@@ -1,0 +1,44 @@
+import java.util.Scanner;
+public class task1
+{
+public static void main(String[] args)
+{
+Scanner sc = new Scanner(System.in);
+System.out.println("enter first number = ");
+int num1= sc.nextInt();
+System.out.println("enter second number");
+int num2= sc.nextInt();
+
+
+do
+{ 
+System.out.println(" for addition = 1 ");
+System.out.println(" for subtraction = 2 ");
+System.out.println(" for multiplication = 3 ");
+System.out.println(" for division = 4 ");
+System.out.println(" for exit = 5 ");
+System.out.println(" enter operator = ");
+int func = sc.nextInt();
+
+switch(func)
+{
+case 1 : 
+int add = num1 + num2;
+System.out.println( "addition is = "  + add );
+break;
+case 2 : int subtract = num1-num2;
+System.out.println( "subtraction is = "  + subtract );
+break;
+case 3 : int multiply = num1*num2;
+System.out.println( "multiplication is = "  + multiply );
+break;
+case 4 : double divide = num1/num2;
+System.out.println( "division is = "  + divide );
+break;
+
+default : System.out.println( "Invalid operator bhai" );
+}
+}
+while (func!=5);
+} 
+}
