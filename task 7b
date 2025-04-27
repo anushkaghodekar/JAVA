@@ -1,0 +1,59 @@
+class Library
+{
+String title;
+int itemid;
+boolean status;
+
+public Library(String title,int itemid,boolean status)
+{
+this.title=title;
+this.itemid=itemid;
+this.status=status; }
+
+public void checkin(boolean status)
+{ status = true; System.out.println("checked in"); }
+
+public void checkout(boolean status)
+{ status = false; System.out.println("checked out"); }
+}
+class book extends Library
+{ String author;
+public book(String title,int itemid,boolean status,String author)
+{ super(title,itemid,status);
+this.author=author; }
+}
+
+class ebook extends book
+{ double filesize;
+public ebook (String title,int itemid,boolean status,String author, double filesize)
+{
+super(title,itemid,status,author);
+this.filesize=filesize; }
+
+public void download()
+{ System.out.println(".....book is downloading..."); }
+
+public void display()
+{
+
+System.out.println("book title = " + title);
+System.out.println("book itemid = " + itemid);
+System.out.println("book status = " + status);
+System.out.println("book author = " + author);
+System.out.println("book filesize = " + filesize);
+if (status==true) { System.out.println( title + "is available");}
+else { System.out.println(title + "is not available"); }
+} 
+}
+
+public class task7
+{
+public static void main(String[] args)
+{
+ebook bk= new ebook("harry potter",3,true,"jk rowling",244);
+bk.checkin(true);
+bk.display();
+bk.download();
+bk.checkout(true);
+}
+}
