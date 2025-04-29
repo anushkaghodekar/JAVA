@@ -1,0 +1,65 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class temperature {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Temperature Converter Hahaha");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+      
+        JLabel label = new JLabel("Temperature dal be:");
+        JTextField input = new JTextField(5);
+        JLabel tofahrenheit = new JLabel("to fahrenheit=");
+        JTextField fahren = new JTextField(5);
+        JLabel tokelvin = new JLabel(" to kelvin=");
+        JTextField kelvin = new JTextField(5);
+
+        JButton FAHRENHEIT = new JButton("fahran");
+        JButton KELVIN = new JButton("kelvin");
+       
+        FAHRENHEIT.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double temp = Double.parseDouble(input.getText());
+                    double convertedTemp = (temp * 9 / 5) + 32;
+                    fahren.setText(String.format("%.2f", convertedTemp));
+                } catch (NumberFormatException ex) {
+                    fahren.setText("Invalid hai be");
+                }
+            }
+        });
+
+
+       KELVIN.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double temp = Double.parseDouble(input.getText());
+                    double convertedTemp = temp + 273.15;
+                    kelvin.setText(String.format("%.2f K", convertedTemp));
+                } catch (NumberFormatException ex) {
+                    kelvin.setText("Invalid hai be");
+                }
+            }
+        });
+
+       JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(FAHRENHEIT);
+        buttonPanel.add(KELVIN);
+       
+        frame.setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        frame.add(label);
+        frame.add(input);
+        frame.add(tofahrenheit);
+        frame.add(fahren);
+        frame.add(tokelvin);
+        frame.add(kelvin);
+        frame.add(buttonPanel);
+
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+}
