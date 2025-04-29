@@ -1,0 +1,47 @@
+interface Vehicle
+{ void startengine();
+void fuelstatus(); }
+
+interface ElectricVehicle
+{ void startelectric();
+void batterystatus(); }
+
+class Car implements Vehicle,ElectricVehicle
+{ int fuel;
+int charging;
+
+public Car(int fuel,int charging)
+{ this.fuel= fuel;
+this.charging=charging; }
+
+
+@Override
+public void startengine()
+{ System.out.println(" Engine has started "); }
+
+@Override
+public void fuelstatus()
+{ 
+System.out.println("fuel status is good = " + fuel); }
+
+@Override
+public void startelectric()
+{ System.out.println("electric vehicle started" ); }
+
+@Override
+public void batterystatus()
+{
+System.out.println(" charging is also good =" + charging); }
+}
+
+public class gaadi
+{
+public static void main(String[] args)
+{ 
+Car mycar = new Car(50,70);
+mycar.fuelstatus();
+mycar.startengine();
+mycar.startelectric();
+mycar.batterystatus();
+}
+}
