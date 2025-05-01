@@ -1,0 +1,59 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Colour {
+    public static void main(String[] args) {
+        // Create the frame
+        JFrame frame = new JFrame("COLOURS");
+        frame.setSize(400,200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setLayout(new FlowLayout()); // Simple layout
+
+        // Label
+        JLabel label = new JLabel("PICK A COLOUR");
+
+        // Buttons
+        JButton red = new JButton("RED");
+        JButton green = new JButton("GREEN");
+        JButton blue = new JButton("BLUE");
+
+        // Display text field (for background color)
+        JTextField display = new JTextField(20);
+        display.setEditable(false);
+        display.setOpaque(true); // Makes background color visible
+        display.setBackground(Color.LIGHT_GRAY);
+
+        // Message text field
+        JTextField message = new JTextField(20);
+        message.setEditable(false);
+
+        // Add action listeners
+        red.addActionListener(e -> {
+            display.setBackground(Color.RED);
+            message.setText("Your selected colour is RED");
+        });
+
+        green.addActionListener(e -> {
+            display.setBackground(Color.GREEN);
+            message.setText("Your selected colour is GREEN");
+        });
+
+        blue.addActionListener(e -> {
+            display.setBackground(Color.BLUE);
+            message.setText("Your selected colour is BLUE");
+        });
+
+        // Add all components to the frame
+        frame.add(label);
+        frame.add(red);
+        frame.add(green);
+        frame.add(blue);
+        frame.add(display);
+        frame.add(message);
+
+        // Make the frame visible
+        frame.setVisible(true);
+    }
+}
