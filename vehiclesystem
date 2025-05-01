@@ -1,0 +1,56 @@
+class Vehicle {
+    String brand;
+    String model;
+    int year;
+
+    public Vehicle(String brand, String model, int year) {
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+    }
+}
+
+class Car extends Vehicle {
+    String engine;
+
+    public Car(String brand, String model, int year, String engine) {
+        super(brand, model, year);
+        this.engine = engine;
+    }
+}
+
+class Sportscar extends Car {
+    int horsepower;
+    boolean turbos;
+
+    public Sportscar(String brand, String model, int year, String engine, int horsepower, boolean turbos) {
+        super(brand, model, year, engine);
+        this.horsepower = horsepower;
+        this.turbos = turbos;
+    }
+
+    public void turbos() {
+        if (turbos == true) {
+            System.out.println("TURBO IS ENABLED");
+        } else {
+            System.out.println("TURBO IS DISABLED");
+        }
+    }
+
+    public void display() {
+        System.out.println("Brand: " + brand);
+        System.out.println("Model: " + model);
+        System.out.println("Year: " + year);
+        System.out.println("Engine: " + engine);
+        System.out.println("Horsepower: " + horsepower);
+        System.out.println("Turbo: " + turbos);
+    }
+}
+
+public class VehicleSystem {
+    public static void main(String[] args) {
+        Sportscar car = new Sportscar("Ferrari", "812 Superfast", 2023, "V12", 789, true);
+        car.display();
+        car.turbos();
+    }
+}
